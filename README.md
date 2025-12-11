@@ -104,7 +104,7 @@ A ressonância, característica marcante do MS-20, é obtida realimentando o sin
 
 O circuito foi montado no LTspice a partir do esquema disponível na documentação do KS-20, porém não foi possível realizar testes significativos de sua operação. A figura 1 mostra a montagem do circuito no software LTspice.
 
-![Figura 1](vcf_1.jpeg)
+![Figura 1](vcf_sim_schematic.jpeg)
 
 A principal dificuldade surgiu da falta de clareza quanto aos pontos adequados para inserir o sinal de entrada e sobre qual nó deveria ser considerado a saída em cada modo de funcionamento do filtro. Como o KS-20 permite diferentes caminhos internos dependendo da entrada utilizada (passa-baixas ou passa-altas), tornou-se difícil estabelecer um arranjo de excitação que representasse de forma confiável o comportamento real do circuito. Além disso, a presença de elementos não lineares na malha de realimentação, como LEDs utilizados para modelar a saturação da ressonância, exige parâmetros mais precisos para que a simulação seja fiel. Assim, embora o circuito tenha sido implementado no ambiente de simulação, não foi possível obter resultados conclusivos sobre sua resposta ou sua dinâmica.
 
