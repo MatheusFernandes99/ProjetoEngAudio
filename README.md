@@ -129,7 +129,7 @@ A reprodução do circuito seguiu fielmente o esquema original, sem modificaçõ
 
 O VCO (Voltage Controlled Oscillator) é uma das partes principais de um sintetizador analógico. Ele é responsável por gerar a forma de onda bruta cuja frequência é determinada por uma tensão de entrada. Em um sistema modular padrão 1V/Oct (um volt por oitava) ou seja, um aumento de 1 volt na entrada deve dobrar a frequência da saída.
 
-Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente.
+Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). O autor tambem possui uma playlist no Youtube onde constroi cada seção do VCO separadamente: [DIY VCO Series](https://youtube.com/playlist?list=PLHeL0JWdJLvTuGCyC3qvx0RM39YvopVQN&si=scAYUBEbraoZ-Eum). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente.
 
 ### X.1) Princípio de Funcionamento
 
@@ -174,7 +174,7 @@ Durante a simulação, um ponto crítico observado foi a convergência do modelo
 
 #### X.2.2) Montagem Física
 
-A montagem física seguiu o diagrama elétrico fornecido no manual da mki x es.edu.
+A montagem física seguiu o diagrama elétrico fornecido no manual da mki x es.edu [VCO_MANUAL_v2.pdf](https://www.ericasynths.lv/media/VCO_MANUAL_v2.pdf).
 
 ![](imagens/VCO/esquematico.png)
 
@@ -200,7 +200,7 @@ Os componentes principais utilizados foram:
 
 *OBS.:* O NTC tem como função diminuir ruido termico no circuito. Contudo, esse componente não foi utilizado na versão final pois o modelo comprado veio com as especificações erradas por engano.
 
-A figura abaixo ilustra o resultado final da montagem na protoboard e :
+A figura abaixo ilustra o resultado final da montagem na protoboard:
 
 ![](imagens/VCO/protoboard1.jpg)
 ![](imagens/VCO/protoboard2.jpg)
