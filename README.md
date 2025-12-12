@@ -14,7 +14,7 @@ Um LFO (Low-Frequency Oscillator) é um oscilador de baixa frequência usado em 
 
 O LFO utilizado no projeto se trata de um oscilador auxiliar baseado em um dos inversores do CD40106 Schmitt Trigger. Sua função é gerar um pulso periódico usado para sincronizar outro oscilador, o VCO (Voltage Controlled Oscillator. Para o LFO, foi utilizado o circuito descrito no vídeo [DIY Synth-40106 Oscillator with Sync](https://www.youtube.com/watch?v=FT-08mk-UgM).
 
-![](imagens/lfo_0.png)
+![](imagens/LFO/lfo_0.png)
 
 ### X.1) Princípio de Funcionamento
 
@@ -50,11 +50,11 @@ Para substituir o Schmitt trigger, empregou-se um circuito equivalente composto 
 
 A alimentação do circuito foi realizada por meio de uma fonte de tensão senoidal.
 
-![](imagens/lfo_sim_schematic.jpeg)
+![](imagens/LFO/lfo_sim_schematic.jpeg)
 
 O gráfico a seguir, ilustra o resultado da simulação.
 
-![](imagens/lfo_sim_plot.jpeg)
+![](imagens/LFO/lfo_sim_plot.jpeg)
 
 Como podemos observar, o circuito recebe uma entrada senoidal (em azul) e produz uma saída na forma de uma onda quadrada (em verde). Esse resultado demonstra que a simulação produz um resultado esperado.
 
@@ -70,15 +70,15 @@ A montagem do circuito foi feita utilizando os componentes especificados no víd
 
 A montagem co circuito ficou da seguinte forma:
 
-![](imagens/lfo_1.jpeg)
-![](imagens/lfo_2.jpeg)
-![](imagens/lfo_3.jpeg)
+![](imagens/LFO/lfo_1.jpeg)
+![](imagens/LFO/lfo_2.jpeg)
+![](imagens/LFO/lfo_3.jpeg)
 
 O circuito funcionou conforme o esperado, produzindo a onda quadrada desejada. Nas figuras a seguir, nota-se que, ao ajustar a resistência nos potenciômetros, a largura dos pulsos da onda quadrada também é ajustada.
 
-![](imagens/lfo_4.jpeg)
-![](imagens/lfo_5.jpeg)
-![](imagens/lfo_6.jpeg)
+![](imagens/LFO/lfo_4.jpeg)
+![](imagens/LFO/lfo_5.jpeg)
+![](imagens/LFO/lfo_6.jpeg)
 
 Como podemos observar, esta saída esta alinhada com o que se espera do circuito e também com a simulação apresentada anteriormente.
 
@@ -104,7 +104,7 @@ A ressonância, característica marcante do MS-20, é obtida realimentando o sin
 
 O circuito foi montado no LTspice a partir do esquema disponível na documentação do KS-20, porém não foi possível realizar testes significativos de sua operação. A figura 1 mostra a montagem do circuito no software LTspice.
 
-![Figura 1](imagens/vcf_sim_schematic.jpeg)
+![Figura 1](imagens/VCF/vcf_sim_schematic.jpeg)
 
 A principal dificuldade surgiu da falta de clareza quanto aos pontos adequados para inserir o sinal de entrada e sobre qual nó deveria ser considerado a saída em cada modo de funcionamento do filtro. Como o KS-20 permite diferentes caminhos internos dependendo da entrada utilizada (passa-baixas ou passa-altas), tornou-se difícil estabelecer um arranjo de excitação que representasse de forma confiável o comportamento real do circuito. Além disso, a presença de elementos não lineares na malha de realimentação, como LEDs utilizados para modelar a saturação da ressonância, exige parâmetros mais precisos para que a simulação seja fiel. Assim, embora o circuito tenha sido implementado no ambiente de simulação, não foi possível obter resultados conclusivos sobre sua resposta ou sua dinâmica.
 
@@ -124,3 +124,95 @@ A montagem física do KS-20 foi parcialmente realizada em uma protoboard, seguin
 - 2 LEDs.
 
 A reprodução do circuito seguiu fielmente o esquema original, sem modificações, mantendo a organização necessária para acomodar as duas etapas baseadas em OTAs e os elementos da malha de realimentação. No entanto, assim como ocorreu na simulação, não foi possível testar efetivamente o funcionamento do filtro. Alguns dos componentes chegaram próximo ao prazo final de entrega do projeto e, além disso, estavam na forma SMD. Devido às limitações de tempo, a equipe da universidade responsável pela soldagem não conseguiu realizar o serviço a tempo, impossibilitando a montagem dos componentes na protoboard por parte da equipe.
+
+## X) Voltage Controlled Oscillator (VCO)
+
+O VCO (Voltage Controlled Oscillator) é uma das partes principais de um sintetizador analógico. Ele é responsável por gerar a forma de onda bruta cuja frequência é determinada por uma tensão de entrada. Em um sistema modular padrão 1V/Oct (um volt por oitava) ou seja, um aumento de 1 volt na entrada deve dobrar a frequência da saída.
+
+Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). O autor tambem possui uma playlist no Youtube onde constroi cada seção do VCO separadamente: [DIY VCO Series](https://youtube.com/playlist?list=PLHeL0JWdJLvTuGCyC3qvx0RM39YvopVQN&si=scAYUBEbraoZ-Eum). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente.
+
+### X.1) Princípio de Funcionamento
+
+O funcionamento deste VCO pode ser dividido em alguns estágios principais: o estágio de entrada, o núcleo oscilador e o conversor de tensão-corrente (exponencial).
+
+#### X.1.1) Estágio de Entrada
+
+Uma tensão de controle (CV) entra pelo estágio de entrada e é utilizada para controlar a tensão na base do transistor. É esperado que essa tensão esteja entre 0 V e 5 V. Contudo, A tensão de operação do transistor está na faixa de 300 mV a 500 mV. Por conta disso, resistores são organizados de forma a dividir a tensão para um limite adequado.
+
+Dois potenciometros são utilizados na entrada para auxiliar o tunning do VCO. Eles essencialmente adicionam ou subtraem uma certa tensão à CV. Um terceiro potenciometro (trimpot) é utilizado para que o offset da tensão de entrada fique dentro da faixa de operação do transistor. 
+
+
+#### X.1.2) O Núcleo Dente de Serra
+
+O núcleo do oscilador é baseado em um ciclo de carga e descarga de um capacitor. O circuito utiliza um inversor *Schmitt Trigger* (CD40106). O funcionamento ocorre da seguinte maneira:
+
+1.  **Carga Rápida:** O inversor carrega o capacitor de 2.2 nF rapidamente através de um diodo, gerando a subida vertical da onda dente de serra.
+2.  **Descarga Controlada:** Quando a tensão atinge o limiar superior do Schmitt Trigger, a saída do inversor vai para 0V. O diodo bloqueia o retorno da corrente, e o capacitor é forçado a descarregar através de um caminho alternativo. Nesse caso, esse caminho é provido pelo transistor
+3.  **Frequência:** A velocidade dessa descarga determina a frequência da onda. Quanto mais rápida a descarga, mais agudo é o som.
+
+#### X.1.3) Controle de Frequência e Exponenciação
+
+Para que o sintetizador responda musicalmente (1V/Oct), a relação entre a tensão de entrada e a frequência deve ser exponencial (já que as frequências das notas musicais dobram a cada oitava).
+
+Como resistores comuns oferecem uma relação linear, o circuito utiliza um transistor BJT (BC548) como um "dreno de corrente" variável e controlável por tensão. A corrente que flui entre o coletor e o emissor do transistor controla a velocidade de descarga do capacitor. A física do transistor naturalmente fornece a resposta exponencial necessária: um aumento linear na tensão da base resulta em um aumento exponencial na corrente de coletor.
+
+Para compensar a instabilidade térmica, foi implementado um par de transistores NPN (BC548) e PNP (BC558) configurados para que as derivas térmicas de um cancelem as do outro, mantendo a afinação mais estável.
+
+### X.2) Implementações
+
+#### X.2.1) Simulação no Proteus
+
+O esquemático do VCO foi capturado no ambiente Proteus (arquivo `VCO.pdsprj`), visando validar a topologia do circuito misto que envolve lógica digital e comportamento analógico.
+
+A simulação focou em verificar a oscilação do núcleo CD40106 e a linearidade da resposta de descarga do capacitor. O circuito simulado replica o design do manual, incluindo:
+
+  - O loop de realimentação com o diodo e o capacitor de temporização;
+  - O uso de transistores para controle de corrente;
+  - Os estágios de buffer de saída com o TL074.
+
+Durante a simulação, um ponto crítico observado foi a convergência do modelo, exigindo ajustes nos parâmetros de simulação do software.
+
+#### X.2.2) Montagem Física
+
+A montagem física seguiu o diagrama elétrico fornecido no manual da mki x es.edu [VCO_MANUAL_v2.pdf](https://www.ericasynths.lv/media/VCO_MANUAL_v2.pdf).
+
+![](imagens/VCO/esquematico.png)
+
+Os componentes principais utilizados foram:
+
+- 1x CI CD40106 - Schmitt Trigger
+- 1x Amplificador Operacional TL074
+- 1x Capacitor de Poliester 2,2nf / 400V
+- 1x Diodo 1N4148
+- 1x Capacitor de Poliester 1uF / 250V
+- 9x Resistor 100K 5% (1/4W)
+- 1x Transistor NPN - BC548
+- 1x Transistor PNP - BC558
+- 2x Resistor 1M 5% (1/4W)
+- 1x Resistor 1K5 5% (1/4W)
+- 2x Resistor 68K 5% (1/4W)
+- 1x Resistor 33K 5% (1/4W)
+- 1x Resistor 13K 5% (1/4W)
+- 3x Resistor 1K 5% (1/4W)
+- 3x Potenciômetro Linear de 100KΩ
+- 1x Trimpot Vertical 25 Voltas 3296W de 1KΩ
+- 4x Sensor de Temperatura NTC 10K 5mm
+
+*OBS.:* O NTC tem como função diminuir ruido termico no circuito. Contudo, esse componente não foi utilizado na versão final pois o modelo comprado veio com as especificações erradas por engano.
+
+A figura abaixo ilustra o resultado final da montagem na protoboard:
+
+![](imagens/VCO/protoboard1.jpg)
+![](imagens/VCO/protoboard2.jpg)
+
+Durante os testes físicos, foi necessário realizar o procedimento de calibração descrito no manual. Utilizou-se o *trimpot* de 1k $\Omega$ para ajustar a escala de 1V/Oct, garantindo que a diferença de oitavas (ex: C1 para C2) correspondesse exatamente ao dobro da frequência.
+
+A saída obtidas foi uma onda dente de serra nítida, com amplitude de aproximadamente 8Vpp. É possível ver um exemplo da saída do circuito no osciloscópio na imagem a seguir;
+
+![](imagens/VCO/osc.jpg)
+
+Para testar o circuito, além de utilizar a fonte de bancada e o gerador de onda para simular o sinal CV que controla o VCO, tambem se construiu um teclado rudimentar baseado em divisores de tensão:
+
+![](imagens/VCO/teclado.jpg)
+
+Os testes de áudio confirmaram que o oscilador responde corretamente às variações de tensão, permitindo a execução de melodias quando controlado por um ou teclado CV.
