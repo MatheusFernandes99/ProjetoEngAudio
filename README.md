@@ -3,9 +3,9 @@
 
 O objetivo do projeto era de desenvolver um sintetizador analógico. Nas seções a seguir, são abordados os componentes estudados, simulados e montados em laboratório.
 
-- [Low-Frequency Oscillator](#low-frequency-oscillator)
-- [Voltage Controlled Filter](#voltage-controlled-filter)
-- [Voltage Controlled Oscillator](#voltage-controlled-oscillator)
+- [Low-Frequency Oscillator](#low-frequency-oscillator-(lfo))
+- [Voltage Controlled Filter](#voltage-controlled-filter-(vcf))
+- [Voltage Controlled Oscillator](#voltage-controlled-oscillator-(vco))
 
 ## 1) Low-Frequency Oscillator (LFO)
 
