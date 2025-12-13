@@ -219,3 +219,66 @@ Para testar o circuito, além de utilizar a fonte de bancada e o gerador de onda
 ![](imagens/VCO/teclado.jpg)
 
 Os testes de áudio confirmaram que o oscilador responde corretamente às variações de tensão, permitindo a execução de melodias quando controlado por um ou teclado CV.
+
+
+## 4) Attack Decay Sustain Release (ADSR)
+
+O **ADSR (Attack, Decay, Sustain, Release)** é um gerador de envelope utilizado em sistemas de áudio para modelar a evolução temporal de um sinal, geralmente a amplitude, desde o instante em que é acionado até seu desligamento. Por meio das fases de ataque, decaimento, sustentação e liberação, o ADSR permite controlar como o som surge, se estabiliza e desaparece, sendo um elemento fundamental na definição do timbre e da expressividade em sintetizadores e aplicações de processamento de sinais.
+
+Para o projeto, foi utilizado o circuito disponivel no [link](https://www.schmitzbits.de/adsr.html).
+![](imagens/ADSR/esquematicoADSR.png)
+
+### 4.1) Princípio de Funcionamento
+
+O gerador de envelope pode ser dividido em 4 partes
+
+#### 4.1.1) **Attack**
+
+O **Attack** define o tempo necessário para que o envelope evolua do nível inicial (geralmente zero) até seu valor máximo após o acionamento do sinal de controle. Esse parâmetro influencia diretamente a percepção inicial do som, podendo resultar em transientes rápidos e percussivos ou em entradas suaves e graduais.
+
+#### 4.1.2) **Decay**
+
+O **Decay** corresponde ao intervalo de tempo em que o envelope decai do valor máximo atingido no ataque até o nível de sustentação. Ele controla a transição entre o pico inicial e o regime estável do som, sendo responsável por definir o quanto o sinal perde intensidade após o ataque.
+
+#### 4.1.3) **Sustain**
+
+O **Sustain** representa o nível de amplitude mantido enquanto o sinal de controle permanece ativo. Diferentemente dos demais parâmetros, o sustain não é um tempo, mas um valor, determinando a intensidade contínua do som durante sua duração.
+
+#### 4.1.4) **Release**
+
+O **Release** estabelece o tempo que o envelope leva para retornar ao nível zero após o desligamento do sinal de controle. Esse parâmetro define como o som se extingue, permitindo desde cortes abruptos até decaimentos longos e naturais.
+
+
+O **Release** é controlado por um potenciômetro de 10KΩ, enquanto os outros parâmetros por potenciômetros de 2.2MΩ
+
+### 4.2) Implementação
+
+O circuito foi simulado utilzando o _Software_ Proteus
+
+![](imagens/ADSR/circADSR.png)
+
+O não foi possível simular o CI recomendado pelo projeto original, ICM 7555, então ele foi substituido pelo temporizador LM 555.
+
+A saída do envelope **ADSR** é obtida **após o amplificador operacional U2 (LM358)**, que atua no condicionamento final do sinal. Esse estágio fornece uma saída com **baixa impedância**, garantindo que a forma do envelope não seja alterada pela carga conectada ao circuito. A tensão presente nesse ponto corresponde diretamente à curva **Attack–Decay–Sustain–Release**.
+
+
+![](imagens/ADSR/osciloscopioADSR.png)
+
+
+#### 4.2.1) Montagem
+
+Os componentes utilizados foram
+
+- 2x Capacitores de 10uF
+- 1x Capacitor de 2.2uF
+- 2x Resistores de 10KΩ
+- 4x Resitores de 4.7KΩ
+- 1x Resistor de 22KΩ
+- 3x Resistores de 220Ω
+- 3x Resistores de 2.2MΩ
+- 2x Amplificador Operacional LM358
+- 1x CI LM555
+- 3x Transistores NPN BC547
+- 5x Diodos 1N4148
+
+A implementação prática do circuito não atingiu o desempenho esperado, não sendo possível obter o resultado previsto nas condições de operação analisadas. A saída então foi obtida após o capacitor de 10uF, nó em que a tensão se comporta de acordo com um envelope AD(Attack, Decay).
