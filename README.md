@@ -1,10 +1,13 @@
 
 # Projeto Engenharia de Áudio
 
+O objetivo do projeto era de desenvolver um sintetizador analógico. Nas seções a seguir, são abordados os componentes estudados, simulados e montados em laboratório.
 
+- [Low-Frequency Oscillator](#low-frequency-oscillator)
+- [Voltage Controlled Filter](#voltage-controlled-filter)
+- [Voltage Controlled Oscillator](#voltage-controlled-oscillator)
 
-
-## X) Low-Frequency Oscillator (LFO)
+## 1) Low-Frequency Oscillator (LFO)
 
 Um LFO (Low-Frequency Oscillator) é um oscilador de baixa frequência usado em sintetizadores para modular algum parâmetro do som, ou seja, para fazer esse parâmetro variar ao longo do tempo de forma cíclica. O LFO, dependendo da sua construção, pode produzir os seguintes formatos de onda:
 - Senoide;
@@ -16,9 +19,9 @@ O LFO utilizado no projeto se trata de um oscilador auxiliar baseado em um dos i
 
 ![](imagens/LFO/lfo_0.png)
 
-### X.1) Princípio de Funcionamento
+### 1.1) Princípio de Funcionamento
 
-#### X.1.1) Controle da Frequência
+#### 1.1.1) Controle da Frequência
 
 O sistema do LFO atua com base no princípio de carregamento e descarregamento do capacitor de $15 \ \mu F$acoplado ao ground. Junto com os potenciômetros, ele define a velocidade da oscilação da seguinte forma:
 - Quanto maior a resistência total, mais lentamente ele carregará. Isso resulta em uma frequência mais baixa;
@@ -30,17 +33,17 @@ Para ambos os potenciômetros, temos dois tipos de ajuste/controle:
 
 Essa combinação permite ao oscilador ir desde ciclos extremamente lentos até mais rápidos, dependendo dos valores.
 
-#### X.1.2) Geração da Onda Quadrada
+#### 1.1.2) Geração da Onda Quadrada
 
 O CD40106 tem histerese, ou seja, ele muda o estado de saída apenas quando o capacitor alcança certos limites (limite alto e baixo). Isso cria um oscilador de onda quadrada com as seguintes características:
 - Quando a tensão do capacitor sobe acima do limiar, a saída vai para LOW (baixa);
 - Quando cai abaixo do limiar, a saída vai para HIGH (alta).
 
-#### X.1.3) Controle do VCO
+#### 1.1.3) Controle do VCO
 
 A saída do LFO (onda quadrada) passa pelo diodo. Em cada borda (dependendo da polaridade do diodo), ele puxa o nó do primeiro capacitor do VCO para perto de Vcc ou para perto de 0 V, ou seja, injeta ou remove carga do capacitor do VCO.
 
-### X.3) Simulação no LTspice
+### 1.2) Simulação no LTspice
 
 Antes da montagem do circuito, foi elaborado seu esquemático no software LTspice. Como o programa não disponibiliza componentes como potenciômetros e Schmitt triggers, algumas adaptações foram necessárias.
 
@@ -58,7 +61,7 @@ O gráfico a seguir, ilustra o resultado da simulação.
 
 Como podemos observar, o circuito recebe uma entrada senoidal (em azul) e produz uma saída na forma de uma onda quadrada (em verde). Esse resultado demonstra que a simulação produz um resultado esperado.
 
-### X.2) Montagem do Circuito
+### 1.3) Montagem do Circuito
 
 A montagem do circuito foi feita utilizando os componentes especificados no vídeo de referência:
 - 1 chip CD40106 (Schmitt Trigger);
@@ -84,13 +87,13 @@ Como podemos observar, esta saída esta alinhada com o que se espera do circuito
 
 Os dois vídeos na pasta do projeto ilustram esse funcionamento de melhor forma.
 
-## X) Voltage Controlled Filter (VCF)
+## 2) Voltage Controlled Filter (VCF)
 
 Um VCF (Voltage Controlled Filter) é um filtro cuja frequência de corte pode ser modificada por uma tensão de controle. Em vez de ajustar a frequência manualmente com um potenciômetro, é possível modulá-la com sinais externos como LFOs, envelopes, sequenciadores ou qualquer outra fonte de tensão. Isso permite que o filtro se torne um elemento dinâmico no fluxo do sintetizador, alterando o caráter do som ao longo do tempo.
 
 Assim como qualquer filtro, um VCF pode ser passa-baixas, passa-altas, passa-bandas ou uma combinação ajustável entre eles. A diferença fundamental é que ele responde à tensão, o que o torna especialmente útil na síntese subtrativa, onde controlar a abertura e fechamento do filtro é tão importante quanto escolher a forma de onda. Para este trabalho, foi utilizado o VCF do tipo KS-20, disponível no link [Filtro KS-20](https://kassu2000.blogspot.com/2019/07/ks-20-filter.html).
 
-### X.1) Filtro KS-20
+### 2.1) Filtro KS-20
 
 O KS-20 é um VCF baseado no clássico filtro do Korg MS-20, mas reconstruído com OTAs (Operational Transconductance Amplifiers) em vez do par de transistores do circuito original. Ele é formado por duas etapas de filtragem idênticas, cada uma construída em torno de um OTA configurado como integrador. Nessa configuração, o OTA funciona como um resistor variável controlado por corrente: quanto maior a corrente de controle, derivada da tensão de cutoff, menor a "resistência equivalente" e maior a frequência de corte do filtro. Assim, o KS-20 se comporta como um filtro totalmente controlável por tensão, mantendo a musicalidade e a instabilidade interessante do MS-20.
 
@@ -98,9 +101,9 @@ As duas etapas de OTA são encadeadas para formar diferentes configurações de 
 
 A ressonância, característica marcante do MS-20, é obtida realimentando o sinal de saída para a entrada, mas no KS-20 essa realimentação é intencionalmente não linear. Em vez de diodos tradicionais, o circuito utiliza LEDs, que possuem características de condução diferentes e introduzem distorções sutis quando o nível de sinal aumenta. Isso faz com que a ressonância mude de comportamento conforme a amplitude: em níveis baixos, ela soa limpa, já em níveis altos, passa a saturar. O controle de "drive" ajusta exatamente quanto dessa saturação aparece, permitindo desde um filtro suave até um som agressivo e "rasgado". O resultado é um filtro versátil, que combina a flexibilidade dos OTAs, garantindo controle de corte suave e previsível, com a crueza e o caráter da ressonância não linear inspirada no MS-20.
 
-### X.2) Implementações
+### 2.2) Implementações
 
-#### X.2.1) Simulação no LTspice
+#### 2.2.1) Simulação no LTspice
 
 O circuito foi montado no LTspice a partir do esquema disponível na documentação do KS-20, porém não foi possível realizar testes significativos de sua operação. A figura 1 mostra a montagem do circuito no software LTspice.
 
@@ -108,7 +111,7 @@ O circuito foi montado no LTspice a partir do esquema disponível na documentaç
 
 A principal dificuldade surgiu da falta de clareza quanto aos pontos adequados para inserir o sinal de entrada e sobre qual nó deveria ser considerado a saída em cada modo de funcionamento do filtro. Como o KS-20 permite diferentes caminhos internos dependendo da entrada utilizada (passa-baixas ou passa-altas), tornou-se difícil estabelecer um arranjo de excitação que representasse de forma confiável o comportamento real do circuito. Além disso, a presença de elementos não lineares na malha de realimentação, como LEDs utilizados para modelar a saturação da ressonância, exige parâmetros mais precisos para que a simulação seja fiel. Assim, embora o circuito tenha sido implementado no ambiente de simulação, não foi possível obter resultados conclusivos sobre sua resposta ou sua dinâmica.
 
-#### X.2.2) Montagem Física
+#### 2.2.2) Montagem Física
 
 A montagem física do KS-20 foi parcialmente realizada em uma protoboard, seguindo fielmente a lista de componentes fornecida pela referência. O circuito foi montado utilizando alguns dos componentes a seguir:
 - 2 AmpOps LM13700;
@@ -125,24 +128,24 @@ A montagem física do KS-20 foi parcialmente realizada em uma protoboard, seguin
 
 A reprodução do circuito seguiu fielmente o esquema original, sem modificações, mantendo a organização necessária para acomodar as duas etapas baseadas em OTAs e os elementos da malha de realimentação. No entanto, assim como ocorreu na simulação, não foi possível testar efetivamente o funcionamento do filtro. Alguns dos componentes chegaram próximo ao prazo final de entrega do projeto e, além disso, estavam na forma SMD. Devido às limitações de tempo, a equipe da universidade responsável pela soldagem não conseguiu realizar o serviço a tempo, impossibilitando a montagem dos componentes na protoboard por parte da equipe.
 
-## X) Voltage Controlled Oscillator (VCO)
+## 3) Voltage Controlled Oscillator (VCO)
 
 O VCO (Voltage Controlled Oscillator) é uma das partes principais de um sintetizador analógico. Ele é responsável por gerar a forma de onda bruta cuja frequência é determinada por uma tensão de entrada. Em um sistema modular padrão 1V/Oct (um volt por oitava) ou seja, um aumento de 1 volt na entrada deve dobrar a frequência da saída.
 
 Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). O autor tambem possui uma playlist no Youtube onde constroi cada seção do VCO separadamente: [DIY VCO Series](https://youtube.com/playlist?list=PLHeL0JWdJLvTuGCyC3qvx0RM39YvopVQN&si=scAYUBEbraoZ-Eum). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente.
 
-### X.1) Princípio de Funcionamento
+### 3.1) Princípio de Funcionamento
 
 O funcionamento deste VCO pode ser dividido em alguns estágios principais: o estágio de entrada, o núcleo oscilador e o conversor de tensão-corrente (exponencial).
 
-#### X.1.1) Estágio de Entrada
+#### 3.1.1) Estágio de Entrada
 
 Uma tensão de controle (CV) entra pelo estágio de entrada e é utilizada para controlar a tensão na base do transistor. É esperado que essa tensão esteja entre 0 V e 5 V. Contudo, A tensão de operação do transistor está na faixa de 300 mV a 500 mV. Por conta disso, resistores são organizados de forma a dividir a tensão para um limite adequado.
 
 Dois potenciometros são utilizados na entrada para auxiliar o tunning do VCO. Eles essencialmente adicionam ou subtraem uma certa tensão à CV. Um terceiro potenciometro (trimpot) é utilizado para que o offset da tensão de entrada fique dentro da faixa de operação do transistor. 
 
 
-#### X.1.2) O Núcleo Dente de Serra
+#### 3.1.2) O Núcleo Dente de Serra
 
 O núcleo do oscilador é baseado em um ciclo de carga e descarga de um capacitor. O circuito utiliza um inversor *Schmitt Trigger* (CD40106). O funcionamento ocorre da seguinte maneira:
 
@@ -150,7 +153,7 @@ O núcleo do oscilador é baseado em um ciclo de carga e descarga de um capacito
 2.  **Descarga Controlada:** Quando a tensão atinge o limiar superior do Schmitt Trigger, a saída do inversor vai para 0V. O diodo bloqueia o retorno da corrente, e o capacitor é forçado a descarregar através de um caminho alternativo. Nesse caso, esse caminho é provido pelo transistor
 3.  **Frequência:** A velocidade dessa descarga determina a frequência da onda. Quanto mais rápida a descarga, mais agudo é o som.
 
-#### X.1.3) Controle de Frequência e Exponenciação
+#### 3.1.3) Controle de Frequência e Exponenciação
 
 Para que o sintetizador responda musicalmente (1V/Oct), a relação entre a tensão de entrada e a frequência deve ser exponencial (já que as frequências das notas musicais dobram a cada oitava).
 
@@ -158,9 +161,9 @@ Como resistores comuns oferecem uma relação linear, o circuito utiliza um tran
 
 Para compensar a instabilidade térmica, foi implementado um par de transistores NPN (BC548) e PNP (BC558) configurados para que as derivas térmicas de um cancelem as do outro, mantendo a afinação mais estável.
 
-### X.2) Implementações
+### 3.2) Implementações
 
-#### X.2.1) Simulação no Proteus
+#### 3.2.1) Simulação no Proteus
 
 O esquemático do VCO foi capturado no ambiente Proteus (arquivo `VCO.pdsprj`), visando validar a topologia do circuito misto que envolve lógica digital e comportamento analógico.
 
@@ -172,7 +175,7 @@ A simulação focou em verificar a oscilação do núcleo CD40106 e a linearidad
 
 Durante a simulação, um ponto crítico observado foi a convergência do modelo, exigindo ajustes nos parâmetros de simulação do software.
 
-#### X.2.2) Montagem Física
+#### 3.2.2) Montagem Física
 
 A montagem física seguiu o diagrama elétrico fornecido no manual da mki x es.edu [VCO_MANUAL_v2.pdf](https://www.ericasynths.lv/media/VCO_MANUAL_v2.pdf).
 
