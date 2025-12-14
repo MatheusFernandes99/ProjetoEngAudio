@@ -291,7 +291,7 @@ Este repositório contém o desenvolvimento do **módulo VCA (Voltage Controlled
 
 O VCA é responsável por controlar a **amplitude de um sinal de áudio** em função de uma **tensão de controle (CV)**, sendo um dos blocos fundamentais em síntese analógica.
 
----
+
 
 ### Visão Geral
 
@@ -303,7 +303,6 @@ Principais características:
 - Operação adequada para sinais de áudio  
 - Arquitetura baseada em par diferencial de transistores  
 
----
 
 ### Função do Módulo
 
@@ -316,9 +315,8 @@ Esse comportamento permite aplicações como:
 - controle de volume  
 - modulação de amplitude  
 - uso com envelopes e LFOs  
-- controle dinâmico de sinais em sistemas modulares  
-
----
+- controle dinâmico de sinais em sistemas modulares
+  
 
 ### Entradas e Saída
 
@@ -328,7 +326,6 @@ Esse comportamento permite aplicações como:
   entrada ideal de 0V a 10V
 - **Signal Out:** saída do sinal de áudio com amplitude controlada  
 
----
 
 ## Alimentação
 
@@ -340,7 +337,6 @@ O módulo opera com **alimentação simétrica**, padrão em sintetizadores anal
 
 A alimentação simétrica é necessária para garantir operação linear dos amplificadores operacionais e permitir sinais AC centrados em 0 V.
 
----
 
 ## Arquitetura do Circuito
 
@@ -352,7 +348,7 @@ O circuito do VCA é composto por três blocos principais:
 
 Cada bloco desempenha um papel específico no controle da amplitude do sinal.
 
----
+
 
 ## Estágio de Controle por Tensão (CV)
 
@@ -362,7 +358,7 @@ Um potenciômetro permite o ajuste manual da intensidade do CV, definindo a sens
 
 A saída desse estágio controla a corrente aplicada ao emissor comum do par diferencial de transistores.
 
----
+
 
 ## Par Diferencial de Transistores
 
@@ -375,7 +371,6 @@ A corrente total disponível no emissor comum é definida pelo estágio de CV, c
 
 Essa topologia permite controle contínuo e suave da amplitude do sinal.
 
----
 
 ## Estágio de Saída
 
@@ -389,30 +384,32 @@ Esse estágio é responsável por:
 
 O sinal final é disponibilizado em **Signal Out**.
 
----
+## Referência do Circuito
+
+O circuito do módulo VCA foi desenvolvido com base no [link](https://www.ericasynths.lv/media/VCA_MANUAL_FINAL.pdf), utilizado como referência técnica para a topologia e funcionamento do amplificador controlado por tensão.
+
+A partir dessa referência, o circuito foi adaptado, organizado em esquemático próprio no Proteus e posteriormente montado em protoboard para testes e validação.
+
 
 ## Componentes do Circuito
 
 
 Amplicadores Operacionais:
-
-| 2 | TL082 | Amplificador operacional duplo (TL072 pode ser usado como alternativa) |
-
+  - | 2 | TL082 | Amplificador operacional duplo (TL072 pode ser usado como alternativa) |
 Transistores:
-
-| 2 | 2N3904 | Transistores NPN (BC548 pode ser utilizado como equivalente) |
+  - | 2 | 2N3904 | Transistores NPN (BC548 pode ser utilizado como equivalente) |
 Resistores:
-| 2 | 100 Ω | Polarização das bases |
-| 2 | 10 kΩ | Entrada do estágio de saída |
-| 2 | 20 kΩ | Carga dos coletores |
-| 1 | 33 kΩ | Estágio de controle (CV) |
-| 1 | 82 kΩ | Estágio de controle (CV) |
-| 6 | 100 kΩ | Realimentação, referência e mistura de sinais |
-| 2 | 470 kΩ | Realimentação do amplificador de saída |
-| 1 | 1 kΩ | Resistor de saída |
+  - | 2 | 100 Ω | Polarização das bases |
+  - | 2 | 10 kΩ | Entrada do estágio de saída |
+  - | 2 | 20 kΩ | Carga dos coletores |
+  - | 1 | 33 kΩ | Estágio de controle (CV) |
+  - | 1 | 82 kΩ | Estágio de controle (CV) |
+  - | 6 | 100 kΩ | Realimentação, referência e mistura de sinais |
+  - | 2 | 470 kΩ | Realimentação do amplificador de saída |
+  - | 1 | 1 kΩ | Resistor de saída |
 Potenciômetros:
-| 1 | 100 kΩ | Ajuste de nível de CV |
-| 1 | 200 kΩ | Ajuste de sensibilidade / balanceamento |
+  - | 1 | 100 kΩ | Ajuste de nível de CV |
+  - | 1 | 200 kΩ | Ajuste de sensibilidade / balanceamento |
 
 
 ## Esquemático
