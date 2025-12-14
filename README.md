@@ -392,7 +392,7 @@ A partir dessa referência, o circuito foi adaptado, organizado em esquemático,
 
 ## Esquemático 
 
-![Esquemático do VCA](VCA/VCA_esquematico.PNG)
+![](VCA/VCA_esquematico.PNG)
 
 ## Componentes do Circuito
 
