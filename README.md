@@ -395,8 +395,11 @@ O sinal final é disponibilizado em **Signal Out**.
 
 
 Amplicadores Operacionais:
+
 | 2 | TL082 | Amplificador operacional duplo (TL072 pode ser usado como alternativa) |
+
 Transistores:
+
 | 2 | 2N3904 | Transistores NPN (BC548 pode ser utilizado como equivalente) |
 Resistores:
 | 2 | 100 Ω | Polarização das bases |
