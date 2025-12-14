@@ -284,4 +284,137 @@ Os componentes utilizados foram
 - 3x Transistores NPN BC547
 - 5x Diodos 1N4148
 
+
+## 5) Módulo VCA – Voltage Controlled Amplifier
+
+Este repositório contém o desenvolvimento do **módulo VCA (Voltage Controlled Amplifier)**, projetado como parte de um **sintetizador analógico modular**.
+
+O VCA é responsável por controlar a **amplitude de um sinal de áudio** em função de uma **tensão de controle (CV)**, sendo um dos blocos fundamentais em síntese analógica.
+
+---
+
+### Visão Geral
+
+O módulo VCA foi desenvolvido de forma independente, permitindo testes e validação isolados antes de sua integração com os demais módulos do sintetizador.
+
+Principais características:
+- Implementação totalmente analógica  
+- Controle de ganho por tensão (CV)  
+- Operação adequada para sinais de áudio  
+- Arquitetura baseada em par diferencial de transistores  
+
+---
+
+### Função do Módulo
+
+O VCA aplica um ganho controlado por tensão ao sinal de áudio de entrada:
+
+- **CV baixo:** sinal atenuado  
+- **CV alto:** sinal amplificado  
+
+Esse comportamento permite aplicações como:
+- controle de volume  
+- modulação de amplitude  
+- uso com envelopes e LFOs  
+- controle dinâmico de sinais em sistemas modulares  
+
+---
+
+### Entradas e Saída
+
+- **Signal In:** entrada do sinal de áudio
+  entrada ideal de onda senoidal e +- 5V (10Vpp)
+- **CV In:** entrada da tensão de controle
+  entrada ideal de 0V a 10V
+- **Signal Out:** saída do sinal de áudio com amplitude controlada  
+
+---
+
+## Alimentação
+
+O módulo opera com **alimentação simétrica**, padrão em sintetizadores analógicos modulares:
+
+- **+12 V**  
+- **–12 V**  
+- **GND**
+
+A alimentação simétrica é necessária para garantir operação linear dos amplificadores operacionais e permitir sinais AC centrados em 0 V.
+
+---
+
+## Arquitetura do Circuito
+
+O circuito do VCA é composto por três blocos principais:
+
+1. **Estágio de Controle por Tensão (CV)**  
+2. **Par Diferencial de Transistores**  
+3. **Estágio de Saída**
+
+Cada bloco desempenha um papel específico no controle da amplitude do sinal.
+
+---
+
+## Estágio de Controle por Tensão (CV)
+
+O sinal de **CV In** é processado por um amplificador operacional (TL082), responsável por ajustar a escala da tensão de controle e convertê-la em uma polarização adequada para o par diferencial.
+
+Um potenciômetro permite o ajuste manual da intensidade do CV, definindo a sensibilidade do VCA.
+
+A saída desse estágio controla a corrente aplicada ao emissor comum do par diferencial de transistores.
+
+---
+
+## Par Diferencial de Transistores
+
+O núcleo do VCA é formado por um **par diferencial de transistores bipolares**:
+
+- Um transistor recebe o **sinal de áudio**  
+- O outro recebe um **ponto de referência**  
+
+A corrente total disponível no emissor comum é definida pelo estágio de CV, controlando o ganho efetivo do módulo.
+
+Essa topologia permite controle contínuo e suave da amplitude do sinal.
+
+---
+
+## Estágio de Saída
+
+O sinal proveniente do par diferencial é aplicado a um amplificador operacional configurado como somador/amplificador.
+
+Esse estágio é responsável por:
+- converter variações de corrente em tensão  
+- remover componentes DC indesejadas  
+- fornecer ganho adequado  
+- garantir baixa impedância de saída  
+
+O sinal final é disponibilizado em **Signal Out**.
+
+---
+
+## Componentes do Circuito
+
+
+Amplicadores Operacionais:
+| 2 | TL082 | Amplificador operacional duplo (TL072 pode ser usado como alternativa) |
+Transistores:
+| 2 | 2N3904 | Transistores NPN (BC548 pode ser utilizado como equivalente) |
+Resistores:
+| 2 | 100 Ω | Polarização das bases |
+| 2 | 10 kΩ | Entrada do estágio de saída |
+| 2 | 20 kΩ | Carga dos coletores |
+| 1 | 33 kΩ | Estágio de controle (CV) |
+| 1 | 82 kΩ | Estágio de controle (CV) |
+| 6 | 100 kΩ | Realimentação, referência e mistura de sinais |
+| 2 | 470 kΩ | Realimentação do amplificador de saída |
+| 1 | 1 kΩ | Resistor de saída |
+Potenciômetros:
+| 1 | 100 kΩ | Ajuste de nível de CV |
+| 1 | 200 kΩ | Ajuste de sensibilidade / balanceamento |
+
+
+## Esquemático
+
+O esquemático final do módulo VCA foi desenvolvido no Proteus e está disponível neste repositório:
+
+
 A implementação prática do circuito não atingiu o desempenho esperado, não sendo possível obter o resultado previsto nas condições de operação analisadas. A saída então foi obtida após o capacitor de 10uF, nó em que a tensão se comporta de acordo com um envelope AD(Attack, Decay).
