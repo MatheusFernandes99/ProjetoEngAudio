@@ -440,6 +440,6 @@ Entretanto, o **controle de amplitude**, função principal do VCA, **não se co
 
 Esse comportamento indica possíveis limitações ou erros na montagem prática, como tolerância dos componentes, conexões em protoboard ou diferenças entre o modelo ideal simulado e o comportamento real dos dispositivos.
 
-![](imagens/VCA/VCA_protoboard.HEIC)
-![](imagens/VCA/VCA_protoboard2.HEIC)
+![](imagens/VCA/VCA_protoboard.png)
+![](imagens/VCA/VCA_protoboard2.png)
 
