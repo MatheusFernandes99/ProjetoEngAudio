@@ -301,7 +301,7 @@ Principais características:
 - Implementação totalmente analógica  
 - Controle de ganho por tensão (CV)  
 - Operação adequada para sinais de áudio  
-- Arquitetura baseada em par diferencial de transistores  
+- Arquitetura baseada em par diferencial de transistores
 
 
 ### Função do Módulo
@@ -388,8 +388,11 @@ O sinal final é disponibilizado em **Signal Out**.
 
 O circuito do módulo VCA foi desenvolvido com base no [link](https://www.ericasynths.lv/media/VCA_MANUAL_FINAL.pdf), utilizado como referência técnica para a topologia e funcionamento do amplificador controlado por tensão.
 
-A partir dessa referência, o circuito foi adaptado, organizado em esquemático próprio no Proteus e posteriormente montado em protoboard para testes e validação.
+A partir dessa referência, o circuito foi adaptado, organizado em esquemático, montado no Proteus e posteriormente montado em protoboard para testes e validação.
 
+## Esquemático 
+
+![Esquemático do VCA](VCA/VCA_esquematico.PNG)
 
 ## Componentes do Circuito
 
@@ -412,9 +415,31 @@ Potenciômetros:
   - | 1 | 200 kΩ | Ajuste de sensibilidade / balanceamento |
 
 
-## Esquemático
 
-O esquemático final do módulo VCA foi desenvolvido no Proteus e está disponível neste repositório:
+## Simulação no Proteus
 
+Antes da montagem física, o circuito foi validado por meio de **simulação no Proteus**, utilizando todos os valores definidos no esquemático final.
 
-A implementação prática do circuito não atingiu o desempenho esperado, não sendo possível obter o resultado previsto nas condições de operação analisadas. A saída então foi obtida após o capacitor de 10uF, nó em que a tensão se comporta de acordo com um envelope AD(Attack, Decay).
+A simulação apresentou **funcionamento correto**, com:
+- Controle efetivo da amplitude do sinal de saída via tensão de controle (CV);
+- Comportamento esperado do par diferencial de transistores;
+- Estabilidade no estágio de saída, sem saturação indesejada.
+
+![Simulação do VCA no Proteus](VCA/VCA_simuproteus.png)
+  
+## Montagem em Protoboard
+
+Após a simulação, o circuito foi montado fisicamente em **protoboard**, utilizando os mesmos valores de componentes do esquemático.
+
+Durante os testes práticos, observou-se que:
+- O circuito estava corretamente alimentado;
+- O sinal de entrada era aplicado normalmente;
+- A saída do módulo apresentava variação apenas no **offset DC** do sinal.
+
+Entretanto, o **controle de amplitude**, função principal do VCA, **não se comportou conforme o esperado** na montagem física. A atuação do controle resultava predominantemente em deslocamento do nível DC, sem variação significativa do ganho do sinal.
+
+Esse comportamento indica possíveis limitações ou erros na montagem prática, como tolerância dos componentes, conexões em protoboard ou diferenças entre o modelo ideal simulado e o comportamento real dos dispositivos.
+
+![Montagem do VCA em Protoboard](VCA/VCA_protoboard.HEIC)
+![Montagem do VCA em Protoboard2](VCA/VCA_protoboard2.HEIC)
+
