@@ -425,7 +425,7 @@ A simulação apresentou **funcionamento correto**, com:
 - Comportamento esperado do par diferencial de transistores;
 - Estabilidade no estágio de saída, sem saturação indesejada.
 
-![Simulação do VCA no Proteus](VCA/VCA_simuproteus.png)
+![](imagens/VCA/VCA_simuproteus.png)
   
 ## Montagem em Protoboard
 
@@ -440,6 +440,6 @@ Entretanto, o **controle de amplitude**, função principal do VCA, **não se co
 
 Esse comportamento indica possíveis limitações ou erros na montagem prática, como tolerância dos componentes, conexões em protoboard ou diferenças entre o modelo ideal simulado e o comportamento real dos dispositivos.
 
-![Montagem do VCA em Protoboard](VCA/VCA_protoboard.HEIC)
-![Montagem do VCA em Protoboard2](VCA/VCA_protoboard2.HEIC)
+![](imagens/VCA/VCA_protoboard.HEIC)
+![](imagens/VCA/VCA_protoboard2.HEIC)
 
