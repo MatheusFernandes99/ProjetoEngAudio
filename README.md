@@ -9,6 +9,7 @@ Na pasta [Vídeos](Vídeos) é possível visualizar o funcionamento dos módulos
 - [Voltage Controlled Filter](#2-voltage-controlled-filter-vcf)
 - [Voltage Controlled Oscillator](#3-voltage-controlled-oscillator-vco)
 - [Gerador de Envelope (ADSR)](#4-attack-decay-sustain-release-adsr)
+- [Voltage Controlled Amplifier (VCA)](#5-voltage-controlled-amplifier-vca)
 
 ## 1) Low-Frequency Oscillator (LFO)
 
@@ -285,7 +286,7 @@ Os componentes utilizados foram
 - 5x Diodos 1N4148
 
 
-## 5) Módulo VCA – Voltage Controlled Amplifier
+## 5) Voltage Controlled Amplifier (VCA)
 
 Este repositório contém o desenvolvimento do **módulo VCA (Voltage Controlled Amplifier)**, projetado como parte de um **sintetizador analógico modular**.
 
