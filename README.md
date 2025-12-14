@@ -3,9 +3,12 @@
 
 O objetivo do projeto era de desenvolver um sintetizador analógico. Nas seções a seguir, são abordados os componentes estudados, simulados e montados em laboratório.
 
+Na pasta [Vídeos](Vídeos) é possível visualizar o funcionamento dos módulos construídos.
+
 - [Low-Frequency Oscillator](#1-low-frequency-oscillator-lfo)
 - [Voltage Controlled Filter](#2-voltage-controlled-filter-vcf)
 - [Voltage Controlled Oscillator](#3-voltage-controlled-oscillator-vco)
+- [Gerador de Envelope (ADSR)](#4-attack-decay-sustain-release-adsr)
 
 ## 1) Low-Frequency Oscillator (LFO)
 
@@ -65,9 +68,9 @@ Como podemos observar, o circuito recebe uma entrada senoidal (em azul) e produz
 
 A montagem do circuito foi feita utilizando os componentes especificados no vídeo de referência:
 - 1 chip CD40106 (Schmitt Trigger);
-- 1 potenciômetro de 100k $\Omega$;
-- 1 potenciômetro de 10k $\Omega$;
-- 1 resistor de 220 $\Omega$;
+- 1 potenciômetro de 100k Ω;
+- 1 potenciômetro de 10k Ω;
+- 1 resistor de 220 Ω;
 - 1 capacitor de $15 \mu F$;
 - Conectores para protoboard;
 
@@ -117,11 +120,11 @@ A montagem física do KS-20 foi parcialmente realizada em uma protoboard, seguin
 - 2 AmpOps LM13700;
 - 2 AmpOps NE5532;
 - 1 AmpOp TL072;
-- 4 Resistores 220 $\Omega$;
-- 2 Resistores 4.7k $\Omega$;
-- 6 Resistores 10k $\Omega$;
-- 1 Resistor 47k $\Omega$;
-- 1 Resistor 100k $\Omega$;
+- 4 Resistores 220 Ω;
+- 2 Resistores 4.7k Ω;
+- 6 Resistores 10k Ω;
+- 1 Resistor 47k Ω;
+- 1 Resistor 100k Ω;
 - 2 Capacitores 1 nF;
 - 1 Capacitor 470 nF;
 - 2 LEDs.
@@ -132,7 +135,7 @@ A reprodução do circuito seguiu fielmente o esquema original, sem modificaçõ
 
 O VCO (Voltage Controlled Oscillator) é uma das partes principais de um sintetizador analógico. Ele é responsável por gerar a forma de onda bruta cuja frequência é determinada por uma tensão de entrada. Em um sistema modular padrão 1V/Oct (um volt por oitava) ou seja, um aumento de 1 volt na entrada deve dobrar a frequência da saída.
 
-Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). O autor tambem possui uma playlist no Youtube onde constroi cada seção do VCO separadamente: [DIY VCO Series](https://youtube.com/playlist?list=PLHeL0JWdJLvTuGCyC3qvx0RM39YvopVQN&si=scAYUBEbraoZ-Eum). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente.
+Para este projeto, foi utilizada a arquitetura focada em gerar uma onda dente de serra desenvolvida por Moritz Klein para a série educacional [mki x es.EDU](https://www.ericasynths.lv/shop/diy-kits-1/mki-x-esedu-diy-system/). O autor tambem possui uma playlist no Youtube onde constroi cada seção do VCO separadamente: [DIY VCO Series](https://youtube.com/playlist?list=PLHeL0JWdJLvTuGCyC3qvx0RM39YvopVQN&si=scAYUBEbraoZ-Eum). Este design foi escolhido por equilibrar simplicidade de componentes com uma precisão de rastreamento musicalmente útil. O circuito é capaz de gerar ondas dente de serra (sawtooth) e quadrada simultaneamente. Contudo, neste projeto, se construiu o circuito responsável apenas pela onda dente de serra.
 
 ### 3.1) Princípio de Funcionamento
 
@@ -165,7 +168,7 @@ Para compensar a instabilidade térmica, foi implementado um par de transistores
 
 #### 3.2.1) Simulação no Proteus
 
-O esquemático do VCO foi capturado no ambiente Proteus (arquivo `VCO.pdsprj`), visando validar a topologia do circuito misto que envolve lógica digital e comportamento analógico.
+O esquemático do VCO foi capturado no ambiente Proteus (arquivo [`VCO.pdsprj`](Esquemáticos/VCO.pdsprj)), visando validar a topologia do circuito misto que envolve lógica digital e comportamento analógico.
 
 A simulação focou em verificar a oscilação do núcleo CD40106 e a linearidade da resposta de descarga do capacitor. O circuito simulado replica o design do manual, incluindo:
 
@@ -208,7 +211,7 @@ A figura abaixo ilustra o resultado final da montagem na protoboard:
 ![](imagens/VCO/protoboard1.jpg)
 ![](imagens/VCO/protoboard2.jpg)
 
-Durante os testes físicos, foi necessário realizar o procedimento de calibração descrito no manual. Utilizou-se o *trimpot* de 1k $\Omega$ para ajustar a escala de 1V/Oct, garantindo que a diferença de oitavas (ex: C1 para C2) correspondesse exatamente ao dobro da frequência.
+Durante os testes físicos, foi necessário realizar o procedimento de calibração descrito no manual. Utilizou-se o *trimpot* de 1k Ω para ajustar a escala de 1V/Oct, garantindo que a diferença de oitavas (ex: C1 para C2) correspondesse exatamente ao dobro da frequência.
 
 A saída obtidas foi uma onda dente de serra nítida, com amplitude de aproximadamente 8Vpp. É possível ver um exemplo da saída do circuito no osciloscópio na imagem a seguir;
 
