@@ -435,12 +435,10 @@ Após a simulação, o circuito foi montado fisicamente em **protoboard**, utili
 Durante os testes práticos, observou-se que:
 - O circuito estava corretamente alimentado;
 - O sinal de entrada era aplicado normalmente;
-- A saída do módulo apresentava variação apenas no **offset DC** do sinal.
+- O sinal de saída responde conforme o esperado com o VC entre 5V e 10V. O sinal de sáida varia em amplitude e offset com um ganho do sinal um pouco inferior ao da simulação do proteus.
 
-Entretanto, o **controle de amplitude**, função principal do VCA, **não se comportou conforme o esperado** na montagem física. A atuação do controle resultava predominantemente em deslocamento do nível DC, sem variação significativa do ganho do sinal.
 
-Esse comportamento indica possíveis limitações ou erros na montagem prática, como tolerância dos componentes, conexões em protoboard ou diferenças entre o modelo ideal simulado e o comportamento real dos dispositivos.
 
-![](imagens/VCA/VCA_protoboard.png)
-![](imagens/VCA/VCA_protoboard2.png)
+![](imagens/VCA/VCA_protoboard_v1.jpg)
+![](imagens/VCA/VCA_protoboard_v1_2.jpg)
 
